@@ -1,0 +1,110 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+select, .text-box, textarea {
+    display: block;
+    height: 34px;
+    width: 100%;
+    font-size: 14px;
+    padding: 6px 12px;
+    color: #555555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+textarea {
+    min-height: 240px;
+    height: auto;
+}
+select:focus, .text-box:focus, textarea:focus, .btn-default:focus {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0;
+    border-color: #66afe9;
+}
+.btn-default {
+    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #cccccc;
+}
+.btn a:hover {
+    text-decoration: none;
+}
+.table-list {
+    width: 100%;
+}
+.table-list img {
+    border-radius: 5px;
+}
+.title {
+    display: inline-block;
+    margin: 4px;
+}
+.table-list tr {
+    border: 1px solid #ccc;
+    height: 80px;
+}
+
+.table-list tr:hover {
+    background: rgba(0,0,0,0.01);
+}
+.table-list td:first-child {
+    padding-left: 7px;
+    width: 80px;
+}
+.table-list tr td:last-child {
+    width: 240px;
+}
+.pill {
+    margin-left: 7px;
+    font-size: 12px;
+    border-radius: 8px;
+    color: #fff;
+    padding: 2px 8px;
+}
+.high {
+    background: #0fce00;
+}
+.moderate {
+    background: #05bbab;
+}
+.less-important {
+    background: #E56123;
+}

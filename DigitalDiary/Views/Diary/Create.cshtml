@@ -1,0 +1,86 @@
+﻿@model DigitalDiary.Models.Diary
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create","Diary", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Diary</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Importance, "Importance", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Importance", String.Empty)
+                @Html.ValidationMessageFor(model => model.Importance)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                
+                @Html.EditorFor(model => model.Date)
+                @Html.ValidationMessageFor(model => model.Date)
+                <script>
+                    if (document.getElementById("Date").value == "")
+                        document.getElementById("Date").value = "@System.DateTime.Now.ToString("yyyy-MM-dd")";
+                </script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Note)
+                @Html.ValidationMessageFor(model => model.Note)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFile" id="ImageFile"/>
+                
+                @Html.ValidationMessageFor(model => model.Image)
+            </div>
+        </div>
+
+            <input type="hidden" name="LastModification" value="@System.DateTime.Now.ToString()"/>
+                @Html.ValidationMessageFor(model => model.LastModification)
+
+            <input type="hidden" name="UserId" value="@Session["user_id"].ToString()"/>
+                @Html.ValidationMessageFor(model => model.UserId)
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

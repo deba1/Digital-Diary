@@ -1,0 +1,28 @@
+﻿@model DigitalDiary.Models.Diary
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="title">@Html.DisplayFor(model => model.Title) </h2><span class="pill @Html.DisplayFor(model => model.Importance1.Importance1).ToString().ToLower().Replace(" ","-")">@Html.DisplayFor(model => model.Importance1.Importance1)</span><br/>
+
+<div>
+    <h5>@Model.Date.ToString("dd MMMM, yyyy")</h5>
+    <span class="label label-default">Last Modified: @Html.DisplayFor(model => model.LastModification)</span>
+	<hr />
+    <div class="container">
+            @Html.Raw(Model.Note.Replace(Environment.NewLine,"<br/>"))
+            <br/>
+            @if (@Html.DisplayFor(model => model.Image).ToString() != "")
+            {
+                <br/>
+                <img src="/Content/Images/@Html.DisplayFor(model => model.Image)" alt="*" style="max-width: 100%" />
+            }
+
+    </div>
+</div>
+<hr/>
+<div class="button-group">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-primary" })
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-primary" })
+</div>

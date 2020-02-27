@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DigitalDiary.Models.Diary>
+
+@{
+    ViewBag.Title = "Notes";
+}
+
+<h3>Notes</h3>
+
+<p>
+    @Html.ActionLink("+ Create New", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table-list">
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (@Html.DisplayFor(modelItem => item.Image).ToString() != "")
+            {
+                <img src="/Content/Images/@Html.DisplayFor(modelItem => item.Image)" alt="*" width="64" height="64" />
+            }
+            else
+            {
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCACAAIADASIAAhEBAxEB/8QAGwABAQADAQEBAAAAAAAAAAAAAAUCAwQGAQj/xAA1EAABAwMABgUMAwEAAAAAAAAAAQIDBAURBhIWITFBEzZRk+EVIkJUVWFxdIGhsbIyM1Lw/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AP3GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADfR0M9wqGw08TpZHei38noK6am0ZbTUqUFLV1DokfNJOmvhyqvmp2YwB5gHp0pKbSa2rLDFSW6sjk1Vaj9Rj247Dl2PqfXKHv/ACEC7sfU+uUPf+A2PqfXKHv/ACEC7sfVu3MqaOR3JrZ0ypJrKGe3zuhqInRSN9F3594GgAAAAAAAAAAX6aV1t0TkngXUmqajonSJuVGo3OENujeikN8oXzyVSwubIrNVEReSLn7nPN1Lp/nHfqQwLOk1ijsNTDFHOs6SM1lVURMb8EiON80jWMa573LhGtTKqpiXtHcW+guF0wiywtbHDlODnbs/QD7s7S29qeVLi2mlVM9BE3XenxxwDbBRXDLbbc2yz8oJ2KxXfBeakGSR0sjnvcrnuXKucuVVT41ytciouFRcoqAbKiCSlmfDKx0cjFw5ruKFupldctEo5p115qWo6Fki8dRW5wv1F6k8q2OiuT99Q1600zv9KiZavxx+TCHqXUfON/UCGAAAAAAAAAALk3Uun+cd+pDL8Mbq7Q97IU15KWp6SRqcUarcZ/7sIAAv6Pt8oWu5W1v90jWzRN/wBK1d6fHBAM4J5KWZksT1jkYuWubxRQMHNVrlRUwqblRQX5L1bLr59zoXsqPSnpFRFf71au7Iju1otbukoKGWeoT+MlY5FRvvwgC7Rra9HaGgfuqJZFqZGc2pjCZ+n4MIepdR8439SRV1c1dUPnneskr1yrlLUsa0Oh7GS+bJU1PSRtXjqo3GQIAAAAAAAAAAA6bfcqi11CTU0ixv4L2KnYqcyptXrb32q2vdzcsG9fuQgBd2qb7ItvceI2qb7ItvceJCAF3apvsi29x4japvsi29x4kIAXdq9Xey1W5jk4OSDen3JdwuVRdKhZqmRZH8E7ETsRORzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//Z" alt="*" width="64" height="64" />
+            }
+        </td>
+        <td>
+            <h4 class="title">@Html.DisplayFor(modelItem => item.Title)</h4><span class="pill @Html.DisplayFor(modelItem => item.Importance1.Importance1).ToString().ToLower().Replace(" ","-")">@Html.DisplayFor(modelItem => item.Importance1.Importance1)</span><br/>
+            <small>
+                @Html.DisplayFor(modelItem => item.Date)
+            </small>
+            <br/>
+            @if (@Html.DisplayFor(modelItem => item.Note).ToString().Length > 120)
+            {
+                @Html.DisplayFor(modelItem => item.Note).ToString().Substring(0,120)
+                <span>&hellip;</span>
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.Note)
+            }
+            
+        </td>
+        <td class="button-group btn-group-sm">
+            @Html.ActionLink("🖊 Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" })
+            @Html.ActionLink("👁‍🗨 Details", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-info" })
+            @Html.ActionLink("🗑 Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
+

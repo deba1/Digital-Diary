@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DiaryDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Diary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Importance" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Note" Type="varchar(max)" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
+          <Property Name="LastModification" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Importance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Importance" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Diary_Importance">
+          <End Role="Importance" Type="Self.Importance" Multiplicity="1" />
+          <End Role="Diary" Type="Self.Diary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Importance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diary">
+              <PropertyRef Name="Importance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diary_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Diary" Type="Self.Diary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diary">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiaryDbModelStoreContainer">
+          <EntitySet Name="Diary" EntityType="Self.Diary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Importance" EntityType="Self.Importance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Diary_Importance" Association="Self.FK_Diary_Importance">
+            <End Role="Importance" EntitySet="Importance" />
+            <End Role="Diary" EntitySet="Diary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diary_Users" Association="Self.FK_Diary_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Diary" EntitySet="Diary" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiaryDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Diary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Importance" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastModification" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Importance1" Relationship="Self.FK_Diary_Importance" FromRole="Diary" ToRole="Importance" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Diary_Users" FromRole="Diary" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Importance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Importance1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Diaries" Relationship="Self.FK_Diary_Importance" FromRole="Importance" ToRole="Diary" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Diaries" Relationship="Self.FK_Diary_Users" FromRole="Users" ToRole="Diary" />
+        </EntityType>
+        <Association Name="FK_Diary_Importance">
+          <End Role="Importance" Type="Self.Importance" Multiplicity="1" />
+          <End Role="Diary" Type="Self.Diary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Importance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diary">
+              <PropertyRef Name="Importance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Diary_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Diary" Type="Self.Diary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Diary">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiaryDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Diaries" EntityType="Self.Diary" />
+          <EntitySet Name="Importances" EntityType="Self.Importance" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Diary_Importance" Association="Self.FK_Diary_Importance">
+            <End Role="Importance" EntitySet="Importances" />
+            <End Role="Diary" EntitySet="Diaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Diary_Users" Association="Self.FK_Diary_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Diary" EntitySet="Diaries" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DiaryDbModelStoreContainer" CdmEntityContainer="DiaryDbContext">
+          <EntitySetMapping Name="Diaries">
+            <EntityTypeMapping TypeName="DiaryDbModel.Diary">
+              <MappingFragment StoreEntitySet="Diary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Importance" ColumnName="Importance" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="LastModification" ColumnName="LastModification" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Importances">
+            <EntityTypeMapping TypeName="DiaryDbModel.Importance">
+              <MappingFragment StoreEntitySet="Importance">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Importance1" ColumnName="Importance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DiaryDbModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
